@@ -132,6 +132,14 @@
               class="q-mb-sm"
             />
             <div class="text-caption text-grey-7 q-mt-xs">Ihr SEPA QR-Code</div>
+            <!-- QR-Code Herunterladen -->
+            <q-btn
+              v-if="qrCodeData"
+              icon="file_download"
+              class="q-mt-md q-btn--rounded q-btn--flat"
+              style="color: black;"
+              @click="downloadQrCode"
+            />
           </div>
           <div v-else class="text-grey-5 q-mt-md" style="height: 200px; display: flex; align-items: center;">
             QR-Code wird hier angezeigt
@@ -286,6 +294,19 @@ watch(form, () => {
     qrCodeData.value = ''
   }
 }, { deep: true })
+
+function downloadQrCode() {
+  fetch(qrCodeData.value)
+    .then(response => response.blob())
+    .then(blob => {
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'sepa_qr_code.png';
+      link.click();
+      URL.revokeObjectURL(link.href);
+    })
+    .catch(error => console.error('Error downloading QR code:', error));
+}
 </script>
 
 <style scoped>

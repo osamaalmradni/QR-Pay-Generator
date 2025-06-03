@@ -28,7 +28,7 @@ project-root/
 │   ├── package.json
 │   └── quasar.conf.js
 │
-├── venv/               # Virtuelle Python-Umgebung (empfohlen)
+├── venv/               # Virtuelle Python-Umgebung
 │
 └── README.md           # Diese Datei
 ```
